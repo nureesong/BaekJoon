@@ -5,7 +5,7 @@
 using namespace std;
 
 int T, A, B;
-int vis[10000 + 10];
+int vis[10000 + 10];  // 방문한 숫자 표시
 struct DATA {
 	int n;     // 레지스터에 저장하는 십진수
 	string s;  // D, S, L, R이 나열된 명령어
@@ -37,10 +37,10 @@ string BFS() {
 		q.pop();
 
 		for (char c : "DSLR") {
-			if (c == '\0') continue;
+			if (c == '\0') continue;  // 마지막 널문자까지 for문 돌지 않도록 주의!
 
 			int next = apply(cur.n, c);
-			string cmd = cur.s + c;
+			string cmd = cur.s + c;  // 입력된 명령어를 현재 경로에 덧붙이기
 
 			if (next == B) return cmd;
 			if (vis[next]) continue;
