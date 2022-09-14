@@ -1,6 +1,6 @@
 /********************************/
 // [2468] 안전 영역
-// Flood Fill - BFS (20ms)
+// Flood Fill - BFS (16ms)
 /********************************/
 #include <iostream>
 #include <queue>
@@ -10,6 +10,7 @@ using namespace std;
 int N;
 int arr[100 + 10][100 + 10]; // (1,1) 시작
 int vis[100 + 10][100 + 10];
+int minh = 101; // 모든 지역 중 최소 높이 (최소 강수량 = 최소높이)
 int maxh = 0;   // 모든 지역 중 최대 높이 (최대 강수량 = 최대높이 - 1)
 int maxcnt = 1; // maxh = 1이면 maxcnt는 한번도 갱신되지 않으므로 0으로 초기화X
 
@@ -46,7 +47,7 @@ void BFS(int r, int c, int h) {
 void Solve() {
 	int cnt;
 
-	for (int h = 1; h < maxh; h++) {
+	for (int h = minh; h < maxh; h++) {
 		// Init
 		fill(&vis[0][0], &vis[N][N + 1], 0);
 		cnt = 0;
@@ -68,6 +69,7 @@ void Input() {
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= N; j++) {
 			cin >> arr[i][j];
+			if (arr[i][j] < minh) minh = arr[i][j];
 			if (arr[i][j] > maxh) maxh = arr[i][j];
 		}
 	}
