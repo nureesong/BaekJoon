@@ -27,19 +27,20 @@ void comb() {
 // id : 승무패 선택할 경기 번호 (0~14)
 // cnt: 결과 테이블에서 제거해야 할 경기 수
 bool DFS(int tc, int id, int cnt) {
-	// 경기결과 3가지 경우: 승패, 패승, 무승부
-	static int S[3][2] = { {0,2},{2,0},{1,1} }; 
-	
 	// 종료 조건
 	if (id == 15 && cnt == 0) return true;
 	if (id == 15 && cnt > 0) return false;
 	
 	int n1 = game[id].a;
 	int n2 = game[id].b;
-
+	
+	// 경기결과 3가지 경우의 수. (n1, n2) 순서
+	// i = 0: (승,패) = (0,2)
+	// i = 1: (무,무) = (1,1)
+	// i = 2: (패,승) = (2,0)
 	for (int i = 0; i < 3; i++) {
-		int s1 = S[i][0];
-		int s2 = S[i][1];
+		int s1 = i;
+		int s2 = 2 - i;
 		
 		if (!inp[tc][n1][s1] || !inp[tc][n2][s2]) continue;
 
